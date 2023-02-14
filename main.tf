@@ -22,16 +22,56 @@ resource "google_project_service" "project_services" {
   disable_dependent_services = var.disable_dependent_services
 }
 
-resource "google_project_iam_custom_role" "project-custom-role" {
-  project     = var.project_id
-  role_id     = var.role_id
-  title       = var.title
-  description = var.description
-  permissions = var.permissions
+resource "google_project_organization_policy" "project_policy_list_allow_all" {
+  for_each   = toset(var.constraints)
+  project    = var.project_id
+  constraint = each.value
+  list_policy {
+    allow {
+      all = true
+    }
+  }
 }
 
-resource "google_project_iam_member" "custom_role_member" {
+resource "time_sleep" "wait_for_org_policy" {
+  depends_on      = [google_project_organization_policy.project_policy_list_allow_all]
+  create_duration = "90s"
+}
+
+#The constraint with no value will reset to inherited value from folder or org
+resource "google_project_organization_policy" "project_policy_list_deny_all" {
+  for_each   = toset(var.constraints)
+  project    = var.project_id
+  constraint = each.value
+  depends_on = [google_project_iam_member.sa_custom_role_member]
+}
+
+
+resource "google_project_iam_custom_role" "sa_custom_role" {
+  project     = var.project_id
+  role_id     = var.sa_role_id
+  title       = var.sa_title
+  description = var.description
+  permissions = var.sa_permissions
+}
+
+resource "google_project_iam_custom_role" "user_custom_role_member" {
+  project     = var.project_id
+  role_id     = var.user_role_id
+  title       = var.user_title
+  description = var.description
+  permissions = var.user_permissions
+}
+
+resource "google_project_iam_member" "sa_custom_role_member" {
+  project    = var.project_id
+  role       = google_project_iam_custom_role.sa_custom_role.id
+  member     = "serviceAccount:${var.ga360_service_account}"
+  depends_on = [time_sleep.wait_for_org_policy]
+}
+
+resource "google_project_iam_member" "user_custom_role_member" {
   project = var.project_id
-  role    = "projects/${var.project_id}/roles/${google_project_iam_custom_role.project-custom-role.id}"
-  member  = "serviceAccount:${var.ga360_service_account}"
+  role    = google_project_iam_custom_role.user_custom_role_member.id
+  member  = "user:${var.ga360_user}"
 }

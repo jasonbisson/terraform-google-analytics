@@ -42,28 +42,57 @@ variable "activate_apis" {
   type        = list(string)
 }
 
+variable "constraints" {
+  description = "The list of constraints to disable"
+  default     = ["iam.allowedPolicyMemberDomains"]
+  type        = list(string)
+}
+
 variable "ga360_service_account" {
   description = "The name of the GA360 service account"
   type        = string
   default     = "analytics-processing-dev@system.gserviceaccount.com"
 }
 
-variable "role_id" {
+variable "ga360_user" {
+  description = "The name of the GA360 service account"
+  type        = string
+}
+
+variable "sa_role_id" {
   type        = string
   description = "ID of the Custom Role."
-  default     = "GA360EXPORT"
+  default     = "GA360EXPORT_SA"
 }
 
-variable "title" {
+variable "user_role_id" {
+  type        = string
+  description = "ID of the Custom Role."
+  default     = "GA360EXPORT_USER"
+}
+
+variable "sa_title" {
   type        = string
   description = "Human-readable title of the Custom Role, defaults to role_id."
-  default     = "GA360 Export Service"
+  default     = "GA360 Export Service Service Account"
 }
 
-variable "permissions" {
+variable "user_title" {
+  type        = string
+  description = "Human-readable title of the Custom Role, defaults to role_id."
+  default     = "GA360 Export Service Human User"
+}
+
+variable "sa_permissions" {
   type        = list(string)
   description = "IAM permissions assigned to Custom Role."
   default     = ["bigquery.datasets.create", "bigquery.datasets.get", "bigquery.tables.create", "bigquery.tables.get", "bigquery.tables.delete", "bigquery.tables.updateData", "bigquery.jobs.create", "bigquery.jobs.list", "resourcemanager.projects.get"]
+}
+
+variable "user_permissions" {
+  type        = list(string)
+  description = "IAM permissions assigned to Custom Role."
+  default     = ["resourcemanager.projects.get", "serviceusage.services.list","serviceusage.services.enable","resourcemanager.projects.setIamPolicy"]
 }
 
 variable "description" {
