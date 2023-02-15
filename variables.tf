@@ -55,9 +55,15 @@ variable "ga360_service_account" {
   default     = "analytics-processing-dev@system.gserviceaccount.com"
 }
 
+variable "firebase_service_account" {
+  type        = string
+  description = "The name of the Firebase service account"
+  default     = "firebase-measurement@system.gserviceaccount.com"
+}
+
 variable "ga360_group" {
   type        = string
-  description = "The name of the GA360 service account"
+  description = "The name of Google group with Analytics users that need access to Google Cloud"
 }
 
 variable "sa_role_id" {
@@ -93,7 +99,7 @@ variable "sa_permissions" {
 variable "user_permissions" {
   type        = list(string)
   description = "IAM permissions assigned to Custom Role."
-  default     = ["resourcemanager.projects.get", "serviceusage.services.list","serviceusage.services.enable","resourcemanager.projects.setIamPolicy"]
+  default     = ["resourcemanager.projects.get", "serviceusage.services.list", "serviceusage.services.enable", "resourcemanager.projects.setIamPolicy"]
 }
 
 variable "description" {

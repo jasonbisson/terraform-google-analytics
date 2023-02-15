@@ -43,7 +43,7 @@ resource "google_project_organization_policy" "project_policy_list_deny_all" {
   for_each   = toset(var.constraints)
   project    = var.project_id
   constraint = each.value
-  depends_on = [google_project_iam_member.sa_custom_role_member]
+  depends_on = [google_project_iam_member.sa360_custom_role_member, google_project_iam_member.safirebase_custom_role_member]
 }
 
 
@@ -55,7 +55,7 @@ resource "google_project_iam_custom_role" "sa_custom_role" {
   permissions = var.sa_permissions
 }
 
-resource "google_project_iam_custom_role" "group_custom_role_member" {
+resource "google_project_iam_custom_role" "user_custom_role_member" {
   project     = var.project_id
   role_id     = var.user_role_id
   title       = var.user_title
@@ -63,10 +63,17 @@ resource "google_project_iam_custom_role" "group_custom_role_member" {
   permissions = var.user_permissions
 }
 
-resource "google_project_iam_member" "sa_custom_role_member" {
+resource "google_project_iam_member" "sa360_custom_role_member" {
   project    = var.project_id
   role       = google_project_iam_custom_role.sa_custom_role.id
   member     = "serviceAccount:${var.ga360_service_account}"
+  depends_on = [time_sleep.wait_for_org_policy]
+}
+
+resource "google_project_iam_member" "safirebase_custom_role_member" {
+  project    = var.project_id
+  role       = "roles/bigquery.user"
+  member     = "serviceAccount:${var.firebase_service_account}"
   depends_on = [time_sleep.wait_for_org_policy]
 }
 
