@@ -15,48 +15,49 @@
  */
 
 variable "project_id" {
-  description = "The project ID to deploy to"
   type        = string
+  description = "The project ID to deploy to"
 }
 
 variable "enable_apis" {
+  type        = string
   description = "Whether to actually enable the APIs. If false, this module is a no-op."
   default     = "true"
 }
 
 variable "disable_services_on_destroy" {
+  type        = string
   description = "Whether project services will be disabled when the resources are destroyed. https://www.terraform.io/docs/providers/google/r/google_project_service.html#disable_on_destroy"
   default     = "false"
-  type        = string
 }
 
 variable "disable_dependent_services" {
+  type        = string
   description = "Whether services that are enabled and which depend on this service should also be disabled when this service is destroyed. https://www.terraform.io/docs/providers/google/r/google_project_service.html#disable_dependent_services"
   default     = "false"
-  type        = string
 }
 
 variable "activate_apis" {
+  type        = list(string)
   description = "The list of apis to activate within the project"
   default     = ["bigquery.googleapis.com", "iam.googleapis.com"]
-  type        = list(string)
 }
 
 variable "constraints" {
+  type        = list(string)
   description = "The list of constraints to disable"
   default     = ["iam.allowedPolicyMemberDomains"]
-  type        = list(string)
 }
 
 variable "ga360_service_account" {
-  description = "The name of the GA360 service account"
   type        = string
+  description = "The name of the GA360 service account"
   default     = "analytics-processing-dev@system.gserviceaccount.com"
 }
 
-variable "ga360_user" {
-  description = "The name of the GA360 service account"
+variable "ga360_group" {
   type        = string
+  description = "The name of the GA360 service account"
 }
 
 variable "sa_role_id" {

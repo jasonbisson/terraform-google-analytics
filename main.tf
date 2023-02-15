@@ -34,8 +34,8 @@ resource "google_project_organization_policy" "project_policy_list_allow_all" {
 }
 
 resource "time_sleep" "wait_for_org_policy" {
-  depends_on      = [google_project_organization_policy.project_policy_list_allow_all]
   create_duration = "90s"
+  depends_on      = [google_project_organization_policy.project_policy_list_allow_all]
 }
 
 #The constraint with no value will reset to inherited value from folder or org
@@ -55,7 +55,7 @@ resource "google_project_iam_custom_role" "sa_custom_role" {
   permissions = var.sa_permissions
 }
 
-resource "google_project_iam_custom_role" "user_custom_role_member" {
+resource "google_project_iam_custom_role" "group_custom_role_member" {
   project     = var.project_id
   role_id     = var.user_role_id
   title       = var.user_title
@@ -73,5 +73,5 @@ resource "google_project_iam_member" "sa_custom_role_member" {
 resource "google_project_iam_member" "user_custom_role_member" {
   project = var.project_id
   role    = google_project_iam_custom_role.user_custom_role_member.id
-  member  = "user:${var.ga360_user}"
+  member  = "group:${var.ga360_group}"
 }
