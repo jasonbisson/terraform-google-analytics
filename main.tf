@@ -23,9 +23,9 @@ resource "google_project_service" "project_services" {
 }
 
 resource "google_project_organization_policy" "project_policy_list_allow_all" {
-  for_each   = toset(var.constraints)
+  count = var.turn_off_org_policy ? 1 : 0
   project    = var.project_id
-  constraint = each.value
+  constraint = var.constraint
   list_policy {
     allow {
       all = true
@@ -40,9 +40,8 @@ resource "time_sleep" "wait_for_org_policy" {
 
 #The constraint with no value will reset to inherited value from folder or org
 resource "google_project_organization_policy" "project_policy_list_deny_all" {
-  for_each   = toset(var.constraints)
   project    = var.project_id
-  constraint = each.value
+  constraint = var.constraint
   depends_on = [google_project_iam_member.sa360_custom_role_member, google_project_iam_member.safirebase_custom_role_member]
 }
 

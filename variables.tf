@@ -43,10 +43,16 @@ variable "activate_apis" {
   default     = ["bigquery.googleapis.com", "iam.googleapis.com"]
 }
 
-variable "constraints" {
-  type        = list(string)
+variable "constraint" {
+  type        = string
   description = "The list of constraints to disable"
-  default     = ["iam.allowedPolicyMemberDomains"]
+  default     = "iam.allowedPolicyMemberDomains"
+}
+
+variable "turn_off_org_policy" {
+  type        = bool
+  description = "Turn off Org Policy Constraint"
+  default     = true
 }
 
 variable "ga360_service_account" {
