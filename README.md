@@ -4,7 +4,7 @@
 This module will prepare a BigQuery environment to receive session and hit level data from Google Analytics into Google BigQuery.
 
 ### Reference Architecture
-
+![Reference Architecture](diagram/GATOBQ.png)
 
 The resources/services/activations/deletions that this module will create/trigger are:
 - Enable Bigquery & IAM service
