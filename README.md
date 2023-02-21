@@ -8,11 +8,12 @@ This module will prepare a BigQuery environment to receive session and hit level
 
 The resources/services/activations/deletions that this module will create/trigger are:
 - Enable Bigquery & IAM service
-- Disable Organization Policy Constraint to allow GA service account to be added
-- Create a custom IAM roles for GA service account and human user
-- Assign GA360/GA4 Service Accounts and human users the custom IAM roles
+- Set turn_off_org_constraint to true to allow G360/GA4 service accounts to be added to IAM policy
+- Create a custom IAM roles for GA360/GA4 service accounts and human user
+- Assign GA360/GA4 Service Accounts and human user to the custom IAM roles
 - Human user will follow [manual instructions](https://support.google.com/analytics/answer/3416092?hl=en#step3&zippy=%2Cin-this-article) to link BigQuery to Google Analytics 
-- Update Organization Policy Constraint variable and run Terraform again to inherit Folder or Organization constraint setting
+- Update turn_off_org_constraint variable to false to inherit Folder or Organization constraint setting
+- Run Terraform apply to inherit Folder or Organization constraint setting
 
 ## Usage
 
@@ -98,3 +99,7 @@ information on contributing to this module.
 ## Security Disclosures
 
 Please see our [security disclosure process](./SECURITY.md).
+
+## Troubleshooting
+
+If VPC Service Controls is enabled the GA360/GA4 and temporarily the human user will need to be added to the access level.
