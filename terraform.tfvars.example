@@ -1,3 +1,3 @@
 project_id  = "Your Google Cloud project id"
-ga360_group = "Your Google Group"
-turn_off_org_policy = "true"
+ga_group = "Your Google Group"
+turn_off_org_constraint = "true"

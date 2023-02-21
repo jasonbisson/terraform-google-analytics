@@ -49,7 +49,7 @@ variable "constraint" {
   default     = "iam.allowedPolicyMemberDomains"
 }
 
-variable "turn_off_org_policy" {
+variable "turn_off_org_constraint" {
   type        = bool
   description = "Turn off Org Policy Constraint"
   default     = true
@@ -67,7 +67,7 @@ variable "firebase_service_account" {
   default     = "firebase-measurement@system.gserviceaccount.com"
 }
 
-variable "ga360_group" {
+variable "ga_group" {
   type        = string
   description = "The name of Google group with Analytics users that need access to Google Cloud"
 }

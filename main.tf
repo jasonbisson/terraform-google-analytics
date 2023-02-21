@@ -23,7 +23,7 @@ resource "google_project_service" "project_services" {
 }
 
 resource "google_project_organization_policy" "project_policy_list_allow_all" {
-  count = var.turn_off_org_policy ? 1 : 0
+  count      = var.turn_off_org_constraint ? 1 : 0
   project    = var.project_id
   constraint = var.constraint
   list_policy {
@@ -40,6 +40,7 @@ resource "time_sleep" "wait_for_org_policy" {
 
 #The constraint with no value will reset to inherited value from folder or org
 resource "google_project_organization_policy" "project_policy_list_deny_all" {
+  count      = var.turn_off_org_constraint ? 0 : 1
   project    = var.project_id
   constraint = var.constraint
   depends_on = [google_project_iam_member.sa360_custom_role_member, google_project_iam_member.safirebase_custom_role_member]
@@ -79,5 +80,5 @@ resource "google_project_iam_member" "safirebase_custom_role_member" {
 resource "google_project_iam_member" "user_custom_role_member" {
   project = var.project_id
   role    = google_project_iam_custom_role.user_custom_role_member.id
-  member  = "group:${var.ga360_group}"
+  member  = "group:${var.ga_group}"
 }
