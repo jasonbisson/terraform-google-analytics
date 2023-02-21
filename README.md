@@ -10,8 +10,8 @@ The resources/services/activations/deletions that this module will create/trigge
 - Enable Bigquery & IAM service
 - Set turn_off_org_constraint to true to allow G360/GA4 service accounts to be added to IAM policy
 - Create a custom IAM roles for GA360/GA4 service accounts and human user
-- Assign GA360/GA4 Service Accounts and human user to the custom IAM roles
-- Human user will follow [manual instructions](https://support.google.com/analytics/answer/3416092?hl=en#step3&zippy=%2Cin-this-article) to link BigQuery to Google Analytics 
+- Assign GA360/GA4 Service Accounts and Google Group to the custom IAM roles
+- Human user will follow [manual instructions](https://support.google.com/analytics/answer/3416092?hl=en#step3&zippy=%2Cin-this-article) to link BigQuery to Google Analytics
 - Update turn_off_org_constraint variable to false to inherit Folder or Organization constraint setting
 - Run Terraform apply to inherit Folder or Organization constraint setting
 
@@ -24,6 +24,7 @@ module "analytics_360" {
   source  = "github.com/jasonbisson/terraform-google-modules/analytics-360/"
   version = "~> 0.1"
   turn_off_org_constraint = "true"
+  ga_group = "Google Group for Analytics Admins"
   project_id  = "<PROJECT ID>"
 }
 ```
