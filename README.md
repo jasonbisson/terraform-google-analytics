@@ -11,7 +11,7 @@ The resources/services/activations/deletions that this module will create/trigge
 - Disable Organization Policy Constraint to allow GA service account to be added
 - Create a custom IAM roles for GA service account and human user
 - Assign GA360/GA4 Service Accounts and human users the custom IAM roles
-- [Human user will follow manual instructions to link BigQuery to Google Analytics] https://support.google.com/analytics/answer/3416092?hl=en#step3&zippy=%2Cin-this-article
+- [Human user will follow manual instructions to link BigQuery to Google Analytics]: https://support.google.com/analytics/answer/3416092?hl=en#step3&zippy=%2Cin-this-article
 - Update Organization Policy Constraint variable and run Terraform again to inherit Folder or Organization constraint setting
 
 ## Usage
