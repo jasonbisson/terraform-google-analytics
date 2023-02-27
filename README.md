@@ -20,12 +20,11 @@ The resources/services/activations/deletions that this module will create/trigge
 Basic usage of this module is as follows:
 
 ```hcl
-module "analytics_360" {
+module "google_analytics" {
   source  = "github.com/jasonbisson/terraform-google-analytics"
-  version = "~> 0.1"
+  project_id  = "<PROJECT ID>"
   turn_off_org_constraint = "true"
   ga_group = "Google Group for Analytics Admins"
-  project_id  = "<PROJECT ID>"
 }
 ```
 
