@@ -57,43 +57,43 @@ variable "turn_off_org_constraint" {
 
 variable "ga360_service_account" {
   type        = string
-  description = "The name of the GA360 service account"
+  description = "Google Analytics 360 service account"
   default     = "analytics-processing-dev@system.gserviceaccount.com"
 }
 
 variable "firebase_service_account" {
   type        = string
-  description = "The name of the Firebase service account"
+  description = "Google Analytics Firebase service account"
   default     = "firebase-measurement@system.gserviceaccount.com"
 }
 
 variable "ga_group" {
   type        = string
-  description = "The name of Google group with Analytics users that need access to Google Cloud"
+  description = "The name of Google group with Analytics users that need to link BigQuery to Google Analytics"
 }
 
 variable "sa_role_id" {
   type        = string
   description = "ID of the Custom Role."
-  default     = "GA360EXPORT_SA"
+  default     = "GA_EXPORT_SA"
 }
 
 variable "user_role_id" {
   type        = string
   description = "ID of the Custom Role."
-  default     = "GA360EXPORT_USER"
+  default     = "GA_EXPORT_USER"
 }
 
 variable "sa_title" {
   type        = string
   description = "Human-readable title of the Custom Role, defaults to role_id."
-  default     = "GA360 Export Service Service Account"
+  default     = "Google Analytics service account that writes website data to BigQuery"
 }
 
 variable "user_title" {
   type        = string
   description = "Human-readable title of the Custom Role, defaults to role_id."
-  default     = "GA360 Export Service Human User"
+  default     = "Google Group for users running one time link of Google Analytics to BigQuery"
 }
 
 variable "sa_permissions" {
@@ -111,7 +111,7 @@ variable "user_permissions" {
 variable "description" {
   type        = string
   description = "Description of Custom role."
-  default     = "Google Analytics 360 Export Service Custom Role"
+  default     = "Google Analytics custom role to write website data to BigQuery"
 }
 
 variable "stage" {
