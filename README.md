@@ -21,7 +21,7 @@ Basic usage of this module is as follows:
 
 ```hcl
 module "analytics_360" {
-  source  = "github.com/jasonbisson/terraform-google-modules/analytics-360/"
+  source  = "github.com/jasonbisson/terraform-google-analytics"
   version = "~> 0.1"
   turn_off_org_constraint = "true"
   ga_group = "Google Group for Analytics Admins"
